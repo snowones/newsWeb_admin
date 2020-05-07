@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.scss';
 
-import {Table,Button    } from 'antd';
+import {Table,Button} from 'antd';
 
 //封装公共请求方法
 function api({ url, args='', callback }) {
