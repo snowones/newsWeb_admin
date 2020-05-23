@@ -2,23 +2,9 @@ import React, { Component } from 'react';
 import './index.scss';
 
 import {Table,Button} from 'antd';
+//封装好的公共方法
+import {api,host} from '../../public/until'
 
-//封装公共请求方法
-function api({ url, args='', callback }) {
-    let argsStr = '';
-    if(args!='') {
-        for(let key in args) {
-            argsStr += key + '=' + args[key] + '&';
-        }
-        argsStr = '?' + argsStr.substr(0, argsStr.length-1);
-    }
-    
-    fetch(url+argsStr)
-    .then(response => response.json())
-    .then(res => {
-        callback(res);
-    });
-}
 
 class Main extends Component {
     constructor(props){
@@ -34,10 +20,10 @@ class Main extends Component {
 
     onChange = ()=>{
         api({
-            url:'http://182.92.64.245/tp5/public/index.php/index',
-            // args: {
-            // },
+            url:host + 'newsSelectAllUserInfo',
+          
             callback: (res) => {
+                console.log(res);
                 this.showData(res);
             }
         });
@@ -54,52 +40,26 @@ class Main extends Component {
             showData.push({
                 id : "",
                 name : "",
-                count:"",
+                account:"",
                 password :"",
-                address:"",
-                sign_person:"",
-                is_vip:"",
+                avatar:"",
+                create_time:"",
             })
         }
         
         for(let j=0;j<data.length;j++){
-            let is_vip = '普通';
-            if(data[j].is_vip){
-                is_vip = 'vip';
-            }
+           
             showData[j].id= data[j].id;
             showData[j].name= data[j].name;
-            showData[j].count= data[j].count;
+            showData[j].account= data[j].account;
             showData[j].password= data[j].password;
-            showData[j].address= data[j].address;
-            showData[j].sign_person= data[j].sign_person;
-            showData[j].is_vip= is_vip;
+            showData[j].avatar= data[j].avatar;
+            showData[j].create_time= data[j].create_time;
         }
 
         this.setState({
             showData
         })
-
-    }
-
-    vipAction = (is_vip,id)=>{
-        let vipChange;
-        if(is_vip == '普通'){
-            vipChange = 1;
-        }else{
-            vipChange = 0;
-        }
-
-        api({
-            url:'http://182.92.64.245/tp5/public/Index/index/change',
-            args: {
-                is_vip : vipChange,
-                id
-            },
-            callback: (res) => {
-                this.onChange();
-            }
-        });
 
     }
 
@@ -112,9 +72,18 @@ class Main extends Component {
                 key: 'name',
             },
             {
+                title: '作者头像',
+                key: 'avatar',
+                render: (text, record) => (
+                    <div>
+                      <img style={{height:'49px'}} src={record.avatar}></img>
+                     </div>
+                )
+            },
+            {
                 title: '账号',
-                dataIndex: 'count',
-                key: 'count',
+                dataIndex: 'account',
+                key: 'account',
             },
             {
                 title: '密码',
@@ -122,33 +91,23 @@ class Main extends Component {
                 key: 'password',
             },
             {
-                title: '地址',
-                dataIndex: 'address',
-                key: 'address',
+                title: '注册时间',
+                dataIndex: 'create_time',
+                key: 'create_time',
             },
-            {
-                title: '个性签名',
-                dataIndex: 'sign_person',
-                key: 'sign_person',
-            },
-            {
-                title: '会员',
-                dataIndex: 'is_vip',
-                key: 'is_vip',
-            },
-            {
-                title:'操作',
-                key: 'action',
-                render: (record) => (
+            // {
+            //     title:'操作',
+            //     key: 'action',
+            //     render: (record) => (
                    
-                    <div>
-                        <Button style={{color:"#63B8FF"}} onClick = {() => {
-                            this.vipAction(record.is_vip,record.id);
-                        }} >升级/降级
-                        </Button>
-                    </div>
-                ),
-            }
+            //         <div>
+            //             <Button style={{color:"#63B8FF"}} onClick = {() => {
+
+            //             }} >编辑
+            //             </Button>
+            //         </div>
+            //     ),
+            // }
         ];
         return (
             <div>

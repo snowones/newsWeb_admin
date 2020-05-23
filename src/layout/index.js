@@ -19,13 +19,13 @@ render() {
                 <Nav/>
             </Sider>
             <Layout >
-                <Header style={{ background: '#fff', textAlign: 'center', padding: 0 }}>微信引流后台</Header>
+                <Header style={{ background: '#fff', textAlign: 'center', padding: 0 }}>疾病防治系统后台</Header>
                 <Content style={{ margin: '24px 16px 0' }}>
                     <div style={{ padding: 24, background: '#fff', minHeight: 460 }}>
                     {renderRoutes(this.props.route.children)}
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Design ©2020 Created by zyx</Footer>
+                <Footer style={{ textAlign: 'center' }}>Design ©2020 Created by PPYO</Footer>
             </Layout>
         </Layout>
         )
