@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.scss';
 
-import {Table,Button} from 'antd';
+import {Table,Button,Modal} from 'antd';
 
 //封装好的公共方法
 import {api,host} from '../../public/until'
@@ -12,6 +12,8 @@ class TieziList extends Component {
         super(props);
         this.state = {
             showData:[],//需要做展示的数据
+            visible:false,//详情弹窗
+            content:'',//文章详情内容
         }
     }
 
@@ -90,6 +92,22 @@ class TieziList extends Component {
         });
     }
 
+     //打开详情弹窗
+     visibleHandleOk = (content)=>{
+        this.setState({
+            content,
+            visible:true,
+        })
+    }
+
+    //关闭详情弹窗
+    visibleHandleCancel = ()=>{
+        this.setState({
+            content:'',
+            visible:false,
+        })
+    }
+
 
     render() {
         const columns = [
@@ -143,7 +161,7 @@ class TieziList extends Component {
                         }} >删除
                         </Button>
                         <Button style={{color:"#63B8FF"}} onClick = {() => {
-                            // this.delete(record.id)s
+                            this.visibleHandleOk(record.content)
                         }} >查看帖子详情
                         </Button>
                     </div>
@@ -152,6 +170,14 @@ class TieziList extends Component {
         ];
         return (
             <div>
+                 <Modal
+                    title="文章详情"
+                    visible={this.state.visible}
+                    onOk={this.visibleHandleCancel}
+                    onCancel={this.visibleHandleCancel}
+                >
+                    <p>{this.state.content}</p>
+                </Modal>
                 <Table 
                     dataSource={this.state.showData} 
                     columns={columns}
