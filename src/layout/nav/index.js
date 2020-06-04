@@ -36,6 +36,12 @@ class Nav extends Component {
                     >
                         <Menu.Item key="7"><a href="#/tieziList">疾病交流帖</a></Menu.Item>
                     </SubMenu>
+                    <SubMenu
+                        key="sub4"
+                        title={<span><Icon type="dashboard" /><span>MarkDown</span></span>}
+                    >
+                        <Menu.Item key="8"><a href="#/markDownDemo">测试markdown</a></Menu.Item>
+                    </SubMenu>
             </Menu>
         )
     }

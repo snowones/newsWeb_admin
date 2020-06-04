@@ -9,6 +9,9 @@ import TieziList from './component/tieZiInfo/index'
 //登录页面
 // import Login from './component/login/index';
 
+//markdown测试页面
+import MarkDownDemo from './component/markdownDemo'
+
 
 var Routes = [ 
         {   
@@ -34,6 +37,11 @@ var Routes = [
                     path: '/tieziList',
                     exact: true,
                     component: TieziList
+                },
+                {
+                    path: '/markDownDemo',
+                    exact: true,
+                    component: MarkDownDemo
                 },
                 // {
                 //     path: '/login',
